@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viñeta Brava - Revista de Cómic Latino</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header__logo">
+            <img src="recursos/logo.png" alt="Viñeta Brava Logo" class="logo">
+        </div>
+    </header>
+
+    <!-- SIDEBAR CATÁLOGO FLOTANTE -->
+    <aside class="sidebar-floating" id="sidebar">
+        <div class="sidebar-floating__background">
+            <img src="recursos/catalogo.png" alt="Contenedor catálogo" class="sidebar-bg">
+        </div>
+        <div class="sidebar-floating__content">
+            <nav class="sidebar__nav">
+                <ul class="catalog" id="catalog">
+                    <!-- Se llenará con JavaScript -->
+                </ul>
+            </nav>
+        </div>
+        <button class="sidebar-floating__toggle" id="sidebarToggle" aria-label="Minimizar catálogo">
+            <span class="toggle-arrow">➤</span>
+        </button>
+    </aside>
+
+    <!-- MAIN CONTENT SCROLLABLE -->
+    <main class="main-content" id="mainContent">
+        <div class="content-wrapper" id="contentWrapper">
+            <!-- Las páginas se cargarán aquí en cascada -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Viñeta Brava. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
