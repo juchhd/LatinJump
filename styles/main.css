@@ -119,6 +119,7 @@ body {
     position: relative;
     transition: transform 0.2s ease;
     margin: 0;
+    border: 10px solid var(--color-hover); /* <-- BORDE ROJO AGREGADO */
 }
 
 .viewer--clickable {
