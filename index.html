@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viñeta Brava - Revista de Cómic Latino</title>
+    <title>Viñeta Brava </title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+    <div class="site-bg" aria-hidden="true">
+        <img src="recursos/fondo.jpg" alt="" />
+    </div>
+    
+    <!-- MASCOTA FLOTANTE DRAGGABLE -->
+    <div class="mascot-floating" id="mascot">
+        <div class="mascot-floating__content" id="mascotContent">
+            <img src="recursos/mascota.png" alt="Mascota" class="mascot-img">
+        </div>
+        <button class="mascot-floating__toggle" id="mascotToggle" aria-label="Minimizar mascota">
+            <span class="mascot-icon">🦴</span>
+        </button>
+    </div>
+
     <!-- HEADER -->
     <header class="header">
         <div class="header__logo">
@@ -40,7 +54,7 @@
 
     <!-- FOOTER -->
     <footer class="footer">
-        <p>&copy; 2024 Viñeta Brava. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Viñeta Brava. Todos los derechos reservados.</p>
     </footer>
 
     <script src="js/script.js"></script>

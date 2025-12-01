@@ -13,6 +13,7 @@ class MangaViewer {
         await this.loadCatalog();
         this.setupEventListeners();
         this.observePages();
+        this.setupMascot(); // nuevo
     }
 
     // ===== NUEVO: Carga directa desde pages.json =====
@@ -238,6 +239,97 @@ class MangaViewer {
                     this.loadMorePages();
                 }
             });
+        }
+    }
+
+    setupMascot() {
+        const mascot = document.getElementById('mascot');
+        const mascotToggle = document.getElementById('mascotToggle');
+        const mascotContent = document.getElementById('mascotContent');
+        
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        if (!mascot) return;
+
+        // Toggle minimizar/maximizar
+        if (mascotToggle) {
+            mascotToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mascot.classList.toggle('minimized');
+            });
+        }
+
+        // Drag & Drop con mouse
+        if (mascotContent) {
+            mascotContent.addEventListener('mousedown', startDrag);
+        }
+        
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDrag);
+
+        // Touch events para móviles
+        if (mascotContent) {
+            mascotContent.addEventListener('touchstart', startDrag);
+        }
+        
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('touchend', stopDrag);
+
+        function startDrag(e) {
+            isDragging = true;
+            mascot.classList.add('dragging');
+            
+            const rect = mascot.getBoundingClientRect();
+            
+            if (e.type === 'touchstart') {
+                offsetX = e.touches[0].clientX - rect.left;
+                offsetY = e.touches[0].clientY - rect.top;
+            } else {
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+            }
+            
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            
+            let clientX, clientY;
+            
+            if (e.type === 'touchmove') {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            const newLeft = clientX - offsetX;
+            const newTop = clientY - offsetY;
+            
+            // Limitar dentro de la ventana
+            const maxX = window.innerWidth - mascot.offsetWidth;
+            const maxY = window.innerHeight - mascot.offsetHeight;
+            
+            const boundedLeft = Math.max(0, Math.min(newLeft, maxX));
+            const boundedTop = Math.max(0, Math.min(newTop, maxY));
+            
+            mascot.style.left = boundedLeft + 'px';
+            mascot.style.top = boundedTop + 'px';
+            mascot.style.right = 'auto';
+            mascot.style.bottom = 'auto';
+        }
+
+        function stopDrag() {
+            if (isDragging) {
+                isDragging = false;
+                mascot.classList.remove('dragging');
+            }
         }
     }
 
