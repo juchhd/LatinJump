@@ -27,6 +27,7 @@ html, body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: url('../recursos/fondo.jpg') center center / cover no-repeat fixed;
     color: var(--color-text);
+    position: relative; /* agregar posición relativa */
 }
 
 /* Animación de entrada para toda la página */
@@ -69,10 +70,7 @@ body {
     background-color: rgba(0, 0, 0, 0.85);
     z-index: 1000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    position: absolute; /* cambiado de fixed a absolute */
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative; /* cambiar de absolute a relative */
     width: 100%;
 }
 
@@ -89,14 +87,16 @@ body {
     opacity: 1; /* explícito para evitar efectos colaterales */
 }
 
-/* MAIN CONTENT - quitar padding-top ya que header no es fijo */
+/* MAIN CONTENT - ajustar para que comience después del header */
 .main-content {
     min-height: calc(100vh - var(--footer-height));
     padding: 40px 20px;
-    padding-top: 180px; /* mantener espacio para el header */
+    padding-top: 40px; /* reducir ya que header es relative */
     background-color: transparent;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .content-wrapper {
@@ -121,6 +121,7 @@ body {
     margin: 0;
     border: 3px solid var(--color-hover);
     animation: slideInPage 0.5s ease-out; /* <-- ANIMACIÓN DE ENTRADA */
+    z-index: 1;
 }
 
 @keyframes slideInPage {
@@ -268,27 +269,22 @@ body {
 
 .sidebar-floating__toggle {
     position: absolute;
-    right: calc(-50px);
+    right: calc(-40px); /* reducido de -50px */
     top: 85%;
     transform: translateY(-50%);
     background-color: var(--color-primary);
-    border: 3px solid white; /* <-- BORDE BLANCO AGREGADO */
+    border: 3px solid white;
     color: rgb(255, 255, 255);
-    width: 60px;
-    height: 60px;
+    width: 45px; /* reducido de 60px */
+    height: 45px; /* reducido de 60px */
     border-radius: 0 15px 15px 0;
-    font-size: 0.7em;
+    font-size: 0.6em; /* reducido de 0.7em */
     cursor: pointer;
     transition: background-color 0.2s ease;
     z-index: 101;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-}
-
-.sidebar-floating__toggle:hover {
-    background-color: var(--color-hover);
 }
 
 /* MASCOTA FLOTANTE DRAGGABLE */
@@ -296,7 +292,7 @@ body {
     position: fixed;
     right: 30px;
     bottom: 30px;
-    z-index: 999;
+    z-index: 1001; /* sobre el header y páginas */
     transition: none; /* quitar transición para movimiento suave */
     user-select: none;
 }
@@ -344,12 +340,12 @@ body {
 .mascot-floating__toggle {
     position: absolute;
     top: -10px;
-    right: -10px;
-    background-color: var(--color-primary); /* <-- ARREGLADO: color de fondo */
-    border: 2px solid white; /* <-- ARREGLADO: borde blanco */
+    right: -10px; /* mantener a la derecha */
+    background-color: var(--color-primary);
+    border: 2px solid white;
     color: white;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     font-size: 1.5em;
     cursor: pointer;
@@ -374,14 +370,18 @@ body {
 /* Mascota minimizada */
 .mascot-floating.minimized {
     cursor: move; /* cambiar cursor para indicar que se puede mover */
+    width: auto; /* ajustar ancho */
+    height: auto; /* ajustar altura */
 }
 
 .mascot-floating.minimized .mascot-floating__toggle {
-    position: static;
-    width: 30px;
-    height: 30px;
-    font-size: 1em;
-    cursor: grab; /* <-- INDICAR QUE SE PUEDE ARRASTRAR */
+    position: relative; /* cambiar de static a relative */
+    top: 0;
+    right: 0;
+    width: 45px; /* reducido de 60px */
+    height: 45px; /* reducido de 60px */
+    font-size: 1.5em; /* reducido de 2em */
+    cursor: grab;
 }
 
 .mascot-floating.minimized.dragging .mascot-floating__toggle {
@@ -409,11 +409,35 @@ body {
 
     .main-content {
         padding: 20px 10px;
-        padding-top: 140px; /* ajuste para header en móvil */
+        padding-top: 20px; /* reducir para responsive */
     }
 
     .sidebar-floating {
         top: 140px;
+    }
+
+    .sidebar-floating__toggle {
+        width: 35px; /* reducido */
+        height: 35px; /* reducido */
+        font-size: 0.5em; /* reducido */
+        right: calc(-35px); /* ajustado */
+    }
+
+    /* Mascota más pequeña en tablet */
+    .mascot-floating__content {
+        width: 100px; /* reducido de 120px */
+    }
+
+    .mascot-floating__toggle {
+        width: 35px; /* reducido de 40px */
+        height: 35px; /* reducido de 40px */
+        font-size: 1.3em; /* reducido */
+    }
+
+    .mascot-floating.minimized .mascot-floating__toggle {
+        width: 40px; /* reducido de 45px */
+        height: 40px; /* reducido de 45px */
+        font-size: 1.3em; /* reducido */
     }
 
     .viewer {
@@ -428,11 +452,42 @@ body {
     }
 
     .main-content {
-        padding-top: 130px;
+        padding-top: 20px; /* mantener consistente */
     }
 
     .sidebar-floating {
         top: 130px;
+    }
+
+    .sidebar-floating__toggle {
+        width: 30px; /* más pequeño para móvil */
+        height: 30px;
+        font-size: 0.45em;
+        right: calc(-30px);
+    }
+
+    /* Mascota mucho más pequeña en móvil */
+    .mascot-floating {
+        right: 15px; /* más pegada al borde */
+        bottom: 15px;
+    }
+
+    .mascot-floating__content {
+        width: 80px; /* reducido significativamente */
+    }
+
+    .mascot-floating__toggle {
+        width: 30px; /* más pequeño */
+        height: 30px;
+        font-size: 1.1em;
+        top: -8px;
+        right: -8px;
+    }
+
+    .mascot-floating.minimized .mascot-floating__toggle {
+        width: 35px; /* más pequeño cuando está minimizada */
+        height: 35px;
+        font-size: 1.2em;
     }
 
     .sidebar__title {
